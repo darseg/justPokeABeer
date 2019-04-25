@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	
+	<changeSet id="add_user_table" author="kim">
+		<createTable tableName="user">
+			<column name="uid" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" primaryKeyName="user_id" />
+			</column>
+			<column name="name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="nick_name" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="add_bar_table" author="kim">
+		<createTable tableName="bar">
+			<column name="bid" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" primaryKeyName="bar_id" />
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="address" type="bigint(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="add_rating_table" author="kim">
+		<createTable tableName="barRatings">
+			<column name="uid" type="bigint(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="bid" type="bigint(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>
