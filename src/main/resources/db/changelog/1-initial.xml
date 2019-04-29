@@ -32,6 +32,7 @@
 			<column name="address" type="bigint(255)">
 				<constraints nullable="false" />
 			</column>
+			<column name="phone" type="varchar(100)" />
 		</createTable>
 	</changeSet>
 	
