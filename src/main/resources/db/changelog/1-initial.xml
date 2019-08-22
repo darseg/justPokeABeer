@@ -1,49 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-	
-	<changeSet id="add_user_table" author="kim">
-		<createTable tableName="user">
-			<column name="uid" type="bigint(20)" autoIncrement="true">
-				<constraints primaryKey="true" primaryKeyName="user_id" />
-			</column>
-			<column name="name" type="varchar(100)">
-				<constraints nullable="false" />
-			</column>
-			<column name="last_name" type="varchar(100)">
-				<constraints nullable="false" />
-			</column>
-			<column name="nick_name" type="varchar(100)">
-				<constraints nullable="true" />
-			</column>
-		</createTable>
-	</changeSet>
-	
-	<changeSet id="add_bar_table" author="kim">
-		<createTable tableName="bar">
-			<column name="bid" type="bigint(20)" autoIncrement="true">
-				<constraints primaryKey="true" primaryKeyName="bar_id" />
-			</column>
-			<column name="name" type="varchar(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="address" type="bigint(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="phone" type="varchar(100)" />
-		</createTable>
-	</changeSet>
-	
-	<changeSet id="add_rating_table" author="kim">
-		<createTable tableName="barRatings">
-			<column name="uid" type="bigint(20)">
-				<constraints nullable="false" />
-			</column>
-			<column name="bid" type="bigint(20)">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-	</changeSet>
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add_user_table" author="kim">
+        <createTable tableName="user">
+            <column name="uid" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_id"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nick_name" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_bar_table" author="kim">
+        <createTable tableName="bar">
+            <column name="bid" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="bar_id"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_rating_table" author="kim">
+        <createTable tableName="bar_ratings">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="br_Id" />
+            </column>
+            <column name="uid" type="bigint(20)">
+                <constraints referencedTableName="user"
+                             referencedColumnNames="uid"
+                             foreignKeyName="bar_rating_fk_uid"
+                             deleteCascade="true"/>
+            </column>
+            <column name="bid" type="bigint(20)">
+                <constraints referencedTableName="bar"
+                             referencedColumnNames="bid"
+                             foreignKeyName="bar_rating_fk_bid"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_schedule_table" author="kim">
+        <createTable tableName="bar_schedule">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="bs_Id" />
+            </column>
+            <column name="bid" type="bigint(20)">
+                <constraints referencedTableName="bar"
+                             referencedColumnNames="bid"
+                             foreignKeyName="bar_schedule_fk_bid"
+                             deleteCascade="true"/>
+            </column>
+            <column name="day" type="smallint(1)"/>
+            <column name="open" type="time"/>
+            <column name="close" type="time"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_bar_image_table" author="kim">
+        <createTable tableName="bar_image">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="bi_Id" />
+            </column>
+            <column name="bid" type="bigint(20)">
+                <constraints referencedTableName="bar"
+                             referencedColumnNames="bid"
+                             foreignKeyName="bar_image_fk_bid"
+                             deleteCascade="true"/>
+            </column>
+            <column name="image_url" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_bar_contacts_table" author="kim">
+        <createTable tableName="bar_contact">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="bc_Id" />
+            </column>
+            <column name="bid" type="bigint(20)">
+                <constraints referencedTableName="bar"
+                             referencedColumnNames="bid"
+                             foreignKeyName="bar_contacts_fk_bid"
+                             deleteCascade="true"/>
+            </column>
+            <column name="type" type="smallint(1)">
+                <constraints nullable="false" />
+            </column>
+            <column name="contact" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text" />
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
